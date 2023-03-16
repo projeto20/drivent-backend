@@ -42,17 +42,18 @@ model Event {
 }
 
 model Enrollment {
-  id        Int       @id @default(autoincrement())
-  name      String    @db.VarChar(255)
-  cpf       String    @db.VarChar(255)
-  birthday  DateTime
-  phone     String    @db.VarChar(255)
-  userId    Int       @unique
-  User      User      @relation(fields: [userId], references: [id])
-  Address   Address[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Ticket    Ticket[]
+  id               Int       @id @default(autoincrement())
+  name             String    @db.VarChar(255)
+  cpf              String    @db.VarChar(255)
+  birthday         DateTime
+  phone            String    @db.VarChar(255)
+  userId           Int       @unique
+  User             User      @relation(fields: [userId], references: [id])
+  Address          Address[]
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  Ticket           Ticket[]
+  ChosenActivities ChosenActivities[]
 }
 
 model Address {
@@ -137,4 +138,36 @@ model Booking {
   roomId    Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Activities {
+  id               Int      @id @default(autoincrement())
+  name             String
+  start_time       String
+  end_time         String
+  place            String
+  vacancies        Int
+  Dates            Dates    @relation(fields: [dateId], references: [id])
+  dateId           Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  ChosenActivities ChosenActivities[]
+}
+
+model Dates {
+  id         Int           @id @default(autoincrement())
+  date       DateTime     
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  Activities Activities[]
+}
+
+model ChosenActivities {
+  id           Int          @id @default(autoincrement())
+  Activities   Activities   @relation(fields: [activitesId], references: [id])
+  activitesId  Int
+  Enrollment   Enrollment   @relation(fields: [enrollmentId], references: [id])
+  enrollmentId Int
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 }
