@@ -141,17 +141,18 @@ model Booking {
 }
 
 model Activities {
-  id               Int      @id @default(autoincrement())
-  name             String
-  start_time       String
-  end_time         String
-  place            String
-  vacancies        Int
-  Dates            Dates    @relation(fields: [dateId], references: [id])
-  dateId           Int
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  ChosenActivities ChosenActivities[]
+  id                 Int      @id @default(autoincrement())
+  Dates              Dates    @relation(fields: [dateId], references: [id])
+  dateId            Int
+  start_time         String
+  end_time           String
+  name               String
+  place              String
+  vacancies          Int
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  @@index([dateId])
+  ChosenActivities   ChosenActivities[]
 }
 
 model Dates {

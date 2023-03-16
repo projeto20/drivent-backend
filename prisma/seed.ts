@@ -82,7 +82,33 @@ async function main() {
       { name: "303", capacity: 3, hotelId: 2 },
       { name: "304", capacity: 3, hotelId: 2 },
     ]
-  })
+  });
+
+  await prisma.dates.createMany({
+    data: [
+      {id: 1, date: "2023-11-10T00:00:00.000Z"},
+      {id: 2, date: "2023-11-11T00:00:00.000Z"},
+      {id: 3, date: "2023-11-12T00:00:00.000Z"},
+    ]
+  });
+
+  await prisma.activities.createMany({
+    data: [
+      { name: "Palestra Inicial", start_time: "07:00", end_time: "09:00", place: "Palco Principal", vacancies: 150, dateId: 1 },
+      { name: "Palestra x", start_time: "09:00", end_time: "11:00", place: "Palco Lateral", vacancies: 50, dateId: 1 },
+      { name: "Palestra y", start_time: "09:00", end_time: "11:00", place: "Workshop", vacancies: 45, dateId: 1 },
+
+      { name: "Palestra z", start_time: "07:00", end_time: "09:00", place: "Palco Principal", vacancies: 150, dateId: 2 },
+      { name: "Palestra x", start_time: "09:00", end_time: "10:00", place: "Palco Lateral", vacancies: 50, dateId: 2 },
+      { name: "Palestra c", start_time: "09:00", end_time: "10:00", place: "Workshop", vacancies: 45, dateId: 2 },
+      { name: "Palestra v", start_time: "11:00", end_time: "12:00", place: "Workshop", vacancies: 45, dateId: 2 },
+
+      { name: "Palestra z", start_time: "07:00", end_time: "11:00", place: "Palco Principal", vacancies: 150, dateId: 3 },
+      { name: "Palestra de Encerramento", start_time: "11:00", end_time: "12:00", place: "Palco Principal", vacancies: 150, dateId: 3 },
+      { name: "Palestra x", start_time: "09:00", end_time: "11:00", place: "Palco Lateral", vacancies: 50, dateId: 3 },
+      { name: "Palestra", start_time: "09:00", end_time: "11:00", place: "Workshop", vacancies: 45, dateId: 3 },
+    ]
+  });
 
   console.log({ event });
 }
