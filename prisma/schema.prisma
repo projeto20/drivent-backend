@@ -153,7 +153,6 @@ model Activities {
   updatedAt          DateTime @updatedAt
   @@index([dateId])
   ChosenActivities   ChosenActivities[]
-  @@map("activities")
 }
 
 model Dates {
@@ -162,7 +161,6 @@ model Dates {
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
   Activities Activities[]
-  @@map("dates")
 }
 
 model ChosenActivities {
