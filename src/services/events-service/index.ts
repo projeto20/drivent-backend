@@ -1,14 +1,16 @@
 import { notFoundError } from "@/errors";
 import eventRepository from "@/repositories/event-repository";
+import redisRepository from "@/repositories/event-repository/redis";
 import { exclude } from "@/utils/prisma-utils";
 import { Event } from "@prisma/client";
 import dayjs from "dayjs";
 
 async function getFirstEvent(): Promise<GetFirstEventResult> {
-  const event = await eventRepository.findFirst();
-  if (!event) throw notFoundError();
+  const redisEvent = await redisRepository.cacheEvent();
+  if (!redisEvent) throw notFoundError();
 
-  return exclude(event, "createdAt", "updatedAt");
+
+  return exclude(redisEvent, "createdAt", "updatedAt");
 }
 
 export type GetFirstEventResult = Omit<Event, "createdAt" | "updatedAt">;
