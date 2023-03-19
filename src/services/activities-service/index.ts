@@ -21,8 +21,8 @@ async function listActivities(userId: number) {
 }
 
 async function getDatesActivities(userId: number) {
-  await listActivities(userId);
-
+  console.log(await listActivities(userId));
+  
   const activities = await activitiesRepository.findDates();
   return activities;
 }
@@ -42,6 +42,7 @@ async function postChosenActivites(userId: number, activityId: number) {
 }
 
 const activitiesService = {
+  listActivities,
   getDatesActivities,
   getDatesWithActivities,
   postChosenActivites
